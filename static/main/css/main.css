@@ -1,0 +1,77 @@
+
+#main {
+  background-image: url("/static/main/img/background.png");
+  background-repeat: no-repeat;
+  height: 100vh !important;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+
+
+body {
+        overflow-x: hidden !important;
+    }
+    .title_main {
+        color: black;
+    }
+
+h1, h2 {
+      text-align: center;
+    }
+
+.navbar {
+    padding: 0 !important;
+}
+
+.nav-link menu-block1 {
+    color: rgb(251, 249, 249) !important;
+}
+.nav-link {
+    color: rgb(141, 85, 215) !important;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: rgb(251, 249, 249) !important;
+}
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+html{
+       width: 100%;
+       max-width: 100%;
+       overflow-x: hidden;
+}
+
+.menu-block2{
+    color: #465ee5 !important;
+}
+
+li{
+    padding: 0 20px;
+}
+
+.menu-block1{
+    color: black !important;
+}
+
+.li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.bg-primary {
+    background: none !important;
+    margin: 0 !important;
+}
+
+.container {
+    margin-top: 20px; /* Верхний отступ от страницы */
+    margin-bottom: 20px; /* Нижний отступ от страницы */
+}

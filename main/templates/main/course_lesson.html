@@ -1,0 +1,66 @@
+{% extends 'main/course_base.html' %}
+
+{% block head %}
+  {{ block.super }}
+  {% load static %}
+  <link  rel="stylesheet" href="{% static 'main/css/display_edit_course.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ course.title }} - Расписание</h1>
+
+    <!-- Кнопка "Вернуться назад" -->
+    <a href="{% url 'course_edit' %}" class="btn btn-secondary mb-4">Вернуться назад</a>
+
+    <!-- Форма для создания нового занятия -->
+    <form method="post" enctype="multipart/form-data" class="mb-4">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="date" class="form-label">Дата занятия:</label>
+        <input type="date" id="date" name="date" required class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="time" class="form-label">Время занятия:</label>
+        <input type="time" id="time" name="time" required class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="assignment" class="form-label">Задание:</label>
+        <input type="file" id="assignment" name="assignment" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Создать занятие</button>
+    </form>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Дата занятия</th>
+        <th>Время занятия</th>
+        <th>Задание</th>
+        <th>Действия</th> <!-- Добавлен столбец для кнопки редактирования -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for lesson in lessons %}
+      <tr>
+        <td>{{ lesson.date }}</td>
+        <td>{{ lesson.time }}</td>
+        <td>
+          {% if lesson.assignment %}
+            <a href="{{ lesson.assignment.url }}" class="btn btn-primary">Скачать задание</a>
+          {% else %}
+            Задание отсутствует
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'edit_lesson' lesson.id %}" class="btn btn-secondary">Редактировать</a> <!-- Кнопка редактирования -->
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

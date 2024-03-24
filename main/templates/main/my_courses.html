@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Мои курсы
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<head><link  rel="stylesheet" href="{% static 'main/css/display_courses.css' %}"></head>
+
+<body>
+    <div class="container">
+        <h2>Мои курсы</h2>
+        <div class="d-flex justify-content-center">
+            <ul class="list-group" style="list-style: none;">
+
+                {% if courses %}
+                    {% for course in courses %}
+                    <li class="list-group-item-md4 mb-4">
+                        <div class="card">
+                            <div class="col-md4">
+                                <img src="{{ course.image.url }}" class="img-fluid" alt="{{ course.title }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ course.title }}</h5>
+                                    <p class="card-text">{{ course.description|truncatechars:50 }}</p>
+                                    {% if request.user.is_authenticated %}
+                                    <a href="{% url 'course_details' course.id %}" class="btn btn-primary">Просмотреть</a>
+                                    <a href="{% url 'course_delete_from_my_list' course.id %}" class="btn btn-primary">Удалить</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Вы пока не подписаны на ни один курс.</p>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</body>
+{% endblock %}

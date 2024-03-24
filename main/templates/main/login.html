@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% block bodyid %}
+id="main"
+{% endblock %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+
+{% block content %}
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/css/login.css' %}">
+    <title>Вход</title>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Вход</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Войти">
+        </form>
+        <p>Еще нет аккаунта? <a href="{% url 'register' %}">Регистрация</a></p>
+    </div>
+</body>
+</html>
+
+{% endblock %}
