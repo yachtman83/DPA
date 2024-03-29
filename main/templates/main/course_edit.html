@@ -1,0 +1,51 @@
+{% extends 'main/course_base.html' %}
+
+{% block head %}
+  {{ block.super }}
+  {% load static %}
+  <link  rel="stylesheet" href="{% static 'main/css/display_edit_course.css' %}">
+{% endblock %}
+
+{% block content %}
+  <!-- Список существующих курсов -->
+  <h2>Курсы</h2>
+<!-- Форма для добавления нового курса -->
+  <div class="add-course-btn">
+    <form method="POST" action="{% url 'course_add' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-warning" style="width: 100%;">
+        <span style="font-size: 20px;">+</span> Добавить курс
+      </button>
+    </form>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Категория</th>
+        <th>Описание</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+      <tr>
+        <td>{{ course.title }}</td>
+        <td>
+          {% if course.category == 'students' %}
+          Студентам
+          {% else %}
+          Подготовка к ЕГЭ
+          {% endif %}
+        </td>
+        <td>{{ course.description|slice:":50" }}{% if course.description|length > 50 %}...{% endif %}</td>
+        <td>
+          <a href="{% url 'current_course_edit' course.id %}" class="btn btn-warning">Редактировать</a>
+          <a href="{% url 'course_delete' course.id %}" class="btn btn-danger">Удалить</a>
+          <a href="{% url 'course_lesson' course.id %}" class="btn btn-info">Расписание</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

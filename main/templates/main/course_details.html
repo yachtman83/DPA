@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Курсы
+{% endblock %}
+
+{% block content %}
+<head>
+    {% load static %}
+    <link  rel="stylesheet" href="{% static 'main/css/display_about_course.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <a class="btn btn-primary text-center" href="javascript:history.back()">Вернуться назад</a>
+        <h1 class="course-title">{{ course.title }}</h1>
+        <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
+        <p class="course-category">{{ course.get_category_display }}</p>
+        <p class="course-description">{{ course.description }}</p>
+        {% if request.user.is_authenticated %}
+        <h1 class="course-title">Расписание</h1>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Дата занятия</th>
+                <th>Время занятия</th>
+                <th>Задание</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for lesson in lessons %}
+              <tr>
+                <td>{{ lesson.date }}</td>
+                <td>{{ lesson.time }}</td>
+                <td>
+                  {% if lesson.assignment %}
+                    <a href="{{ lesson.assignment.url }}" class="btn btn-primary">Скачать задание</a>
+                  {% else %}
+                    Задание отсутствует
+                  {% endif %}
+                </td>
+                <td>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+    </div>
+</body>
+
+{% endblock %}

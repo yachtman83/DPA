@@ -1,0 +1,33 @@
+{% extends 'main/course_base.html' %}
+
+{% block head %}
+  {{ block.super }}
+  {% load static %}
+  <link  rel="stylesheet" href="{% static 'main/css/display_edit_course.css' %}">
+{% endblock %}
+{% block content %}
+<h1>Редактировать занятие</h1>
+
+<form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+  {% csrf_token %}
+  <input type="hidden" name="action" value="update">
+   <label for="date">Дата занятия:</label>
+  <input type="date" id="date" name="date" value="{{ lesson.date|date:"Y-m-d" }}" required><br>
+
+  <label for="time">Время занятия:</label>
+  <input type="time" id="time" name="time" value="{{ lesson.time|time:"H:i" }}" required><br>
+
+  <label for="assignment">Задание:</label>
+  <input type="file" id="assignment" name="assignment" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><br>
+  <!-- остальные поля формы -->
+
+  <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+</form>
+
+<!-- Кнопка удаления занятия -->
+<form method="post" action="{% url 'edit_lesson' lesson.id %}" class="mt-3">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="delete">
+  <button type="submit" class="btn btn-danger">Удалить занятие</button>
+</form>
+{% endblock %}

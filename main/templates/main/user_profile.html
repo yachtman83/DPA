@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .profile-container {
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 20px auto;
+      max-width: 600px;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .profile-photo {
+      margin-right: 20px;
+    }
+
+    .profile-details {
+      text-align: left;
+    }
+
+    .profile-details p {
+      margin: 10px 0;
+    }
+
+    .profile-details ul {
+      padding-left: 20px;
+    }
+
+    .profile-details li {
+      margin-bottom: 5px;
+    }
+  </style>
+  <div class="profile-container">
+    <h1>Мой профиль</h1>
+    <div class="profile-info">
+      <div class="profile-photo">
+        {% if user.photo %}
+          <img src="{{ user.photo.url }}" alt="Фотография профиля" width="300">
+        {% else %}
+          <img src="/media/main/users_photo/photo.png" alt="Фотография профиля" width="300">
+        {% endif %}
+      </div>
+      <div class="profile-details">
+        <p><b>Имя пользователя:</b> {{ user.username }}</p>
+        <p><b>Фамилия:</b> {{ user.last_name }}</p>
+        <p><b>Имя</b> {{ user.first_name }}</p>
+        <p><b>Подписки пользователя</b>:
+          {% if user.subscriptions.exists %}
+            {% with subscriptions=user.subscriptions.all %}
+              {{ subscriptions|join:", " }}
+            {% endwith %}
+          {% else %}
+            У пользователя нет подписок.
+          {% endif %}
+        </p>
+        <p><b>Тип пользователя: </b>
+          {% if user.can_edit_courses %}
+            Автор
+          {% else %}
+            Читатель
+          {% endif %}
+        </p>
+        <a href="{% url 'user_profile_edit' %}">Редактировать профиль</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

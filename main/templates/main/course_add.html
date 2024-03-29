@@ -1,0 +1,51 @@
+{% extends 'main/course_base.html' %}
+
+{% block content %}
+
+  <h2>Добавление курса</h2>
+  <div class="form-container">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.title.id_for_label }}">Название:</label>
+        {{ form.title }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.category.id_for_label }}">Для кого предназначен:</label>
+        {{ form.category }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">Текст курса:</label>
+        {{ form.description }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.image.id_for_label }}">Обложка:</label>
+        {{ form.image }}
+      </div>
+      <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+  </div>
+  <style>
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .form-group {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+    }
+  </style>
+{% endblock %}

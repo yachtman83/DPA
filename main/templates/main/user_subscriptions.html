@@ -1,0 +1,26 @@
+{% extends 'main/course_base.html' %}
+
+{% block content %}
+<body>
+  <div class="container">
+    <h2>Подписки пользователя {{ user.username }}</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Курс</th>
+          <th>Категория</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for subscription in subscriptions %}
+        <tr>
+          <td>{{ subscription.title }}</td>
+          <td>{{ subscription.category }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+
+{% endblock %}

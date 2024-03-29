@@ -1,0 +1,32 @@
+/* styles.css */
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: hsl(0, 73%, 65%);
+  border: 1px solid #cc4848;
+  border-radius: 5px;
+}
+
+.profile-container h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.profile-container p {
+  margin-bottom: 5px;
+}
+
+.profile-container ul {
+  margin-top: 10px;
+  list-style-type: none;
+}
+
+.profile-container ul li {
+  margin-bottom: 5px;
+}
+
+.profile-container ul li:before {
+  content: "•";
+  margin-right: 5px;
+}
